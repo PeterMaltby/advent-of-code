@@ -14,11 +14,11 @@ fn main() {
 
     let start = Instant::now();
     println!("task 1 answer: {}", task1(&input_path));
-    println!("execution took: {}ms", start.elapsed().as_micros());
+    println!("execution took: {}μs", start.elapsed().as_micros());
 
     let start = Instant::now();
     println!("task 2 answer: {}", task2(&input_path));
-    println!("execution took: {}ms", start.elapsed().as_micros());
+    println!("execution took: {}μs", start.elapsed().as_micros());
 }
 
 fn item_to_priority(i: &char) -> i32 {
