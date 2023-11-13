@@ -59,7 +59,6 @@ fn task2(file: &Path) -> i32 {
                 .map(|s| s.parse().unwrap())
                 .collect();
 
-            
             let x = (num_out[0],  num_out[1]);
             let y = (num_out[2],  num_out[3]);
 
