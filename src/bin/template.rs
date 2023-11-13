@@ -28,7 +28,7 @@ fn task1(file: &Path) -> i32 {
     if let Ok(lines) = utils::read_lines(file) {
 
         for line in lines {
-            print!("{}", line.unwrap());
+            println!("{}", line.unwrap());
             n += 1;
         }
     }
