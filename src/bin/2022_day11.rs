@@ -228,10 +228,6 @@ fn task2(file: &Path) -> i64 {
         }
         monkeys.push(monkey);
 
-        for monkey in &monkeys {
-            println!("{:?}", monkey);
-        }
-
         let high_factor: f64 = monkeys.iter().map(|m| m.test_param).product();
 
         for _ in 0..10000 {
