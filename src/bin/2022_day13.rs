@@ -1,5 +1,6 @@
+use std::iter::zip;
+use std::path::{Path, PathBuf};
 use std::time::Instant;
-use std::path::{PathBuf, Path};
 mod utils;
 
 const YEAR: &str = "2022";
@@ -19,7 +20,6 @@ fn main() {
     let start = Instant::now();
     println!("task 2 answer: {}", task2(&input_path));
     println!("execution took: {}μs", start.elapsed().as_micros());
-
 }
 
 #[derive(Debug)]
@@ -54,13 +54,16 @@ impl Item {
                             ']' => depth -= 1,
                             _ => (),
                         }
-                        if depth == 0 { end_sec = n; break; }
-                    };
-                    list.push(Item::new(&chars[i..end_sec+1]));
+                        if depth == 0 {
+                            end_sec = n;
+                            break;
+                        }
+                    }
+                    list.push(Item::new(&chars[i..end_sec + 1]));
                     i = end_sec;
                 }
                 '0'..='9' => {
-                    if chars[i+1] == '0' {
+                    if chars[i + 1] == '0' {
                         list.push(Item::Num(10));
                         i += 1;
                     } else {
@@ -73,20 +76,70 @@ impl Item {
                     return Item::List(list);
                 }
                 _ => panic!("invalid value {}", chars[i]),
-
             }
         }
     }
 }
 
-fn task1(file: &Path) -> i32 {
+#[derive(Debug)]
+enum Comp {
+    True,
+    False,
+    Eq,
+}
 
+fn is_smaller(item_a: &Item, item_b: &Item) -> Comp {
+
+    match (item_a, item_b) {
+        (Item::Num(x), Item::Num(y)) => {
+            if x == y { return Comp::Eq; }
+            if x < y { return Comp::True; }
+            else { return Comp::False; }
+                
+        },
+        (Item::List(x), Item::List(y)) => {
+            let mut x = x.into_iter();
+            let mut y = y.into_iter();
+
+            loop {
+                let vals = (x.next(), y.next());
+                match vals {
+                    (Some(o), Some(p)) => { 
+                        let state =  is_smaller(o, p);
+                        match state {
+                            Comp::True => return Comp::True,
+                            Comp::Eq => (),
+                            Comp::False => return Comp::False,
+                        }
+
+                    },
+                    (Some(_), None) => return Comp::False,
+                    (None, Some(_)) => return Comp::True,
+                    (None, None) => return Comp::Eq,
+                }
+            }
+
+        }
+        (Item::List(_), Item::Num(y)) => {
+            let new_list_y: Item = Item::List(vec![Item::Num(*y)]);
+            return is_smaller(item_a, &new_list_y)
+        }
+        (Item::Num(x), Item::List(_)) => {
+            let new_list_x: Item = Item::List(vec![Item::Num(*x)]);
+            return is_smaller(&new_list_x, item_b)
+        }
+    }
+}
+
+fn task1(file: &Path) -> i32 {
     let mut n = 0;
     if let Ok(lines) = utils::read_lines(file) {
-
         let mut line_iter = lines.into_iter();
 
+        let mut i = 0;
+
         loop {
+            i += 1;
             let next = line_iter.next();
             let line1: Vec<char> = match next {
                 Some(val) => val.unwrap().chars().collect(),
@@ -101,10 +154,15 @@ fn task1(file: &Path) -> i32 {
             };
             let line2 = Item::new(&line2);
 
+            let test = is_smaller(&line1, &line2);
+            match test {
+                Comp::False => (),
+                Comp::Eq => n+=i,
+                Comp::True => n+=i,
+            }
 
             //blank line
             line_iter.next();
-
         }
     }
 
@@ -112,6 +170,5 @@ fn task1(file: &Path) -> i32 {
 }
 
 fn task2(file: &Path) -> i32 {
-
     return 32;
 }
