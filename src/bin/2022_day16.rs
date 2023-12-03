@@ -109,7 +109,7 @@ impl ValveMap {
 
                 match old {
                     None => self.valves[i].leads_to.push(new_route),
-                    Some(o) => if o.0 > new_route.0 { 
+                    Some(o) => if o.0 > new_route.0 {
                         self.valves[i].leads_to.retain(|x| x.1 != new_route.1 );
                         self.valves[i].leads_to.push(new_route);
                         },
