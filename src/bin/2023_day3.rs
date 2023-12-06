@@ -84,7 +84,7 @@ impl Schematic {
                             if y >= self.map.len() { self.map.len() - 1 } else { y },
                         );
 
-                        println!("found: {} - with check area: ({:?}, {:?}) ", part_number, check_area_1, check_area_2);
+                        //println!("found: {} - with check area: ({:?}, {:?}) ", part_number, check_area_1, check_area_2);
 
                         for x in check_area_1.0..=check_area_2.0 {
                             for y in check_area_1.1..=check_area_2.1 {
@@ -149,7 +149,7 @@ impl Schematic {
                             if y >= self.map.len() { self.map.len() - 1 } else { y },
                         );
 
-                        println!("found: {} - with check area: ({:?}, {:?}) ", part_number, check_area_1, check_area_2);
+                        //println!("found: {} - with check area: ({:?}, {:?}) ", part_number, check_area_1, check_area_2);
 
                         for x in check_area_1.0..=check_area_2.0 {
                             for y in check_area_1.1..=check_area_2.1 {
@@ -184,9 +184,9 @@ impl Schematic {
 
         for item in &self.gear {
             for item_to_check in &self.gear {
-                println!("gear pair {}: {:?}, {}: {:?}", item.0, item.1, item_to_check.0, item_to_check.1);
+               //println!("gear pair {}: {:?}, {}: {:?}", item.0, item.1, item_to_check.0, item_to_check.1);
                 if (item.1 == item_to_check.1 && item.0 != item_to_check.0) {
-                    println!("found gear pair {}: {:?}, {}: {:?}", item.0, item.1, item_to_check.0, item_to_check.1);
+                   //println!("found gear pair {}: {:?}, {}: {:?}", item.0, item.1, item_to_check.0, item_to_check.1);
                     n += (item.0 * item_to_check.0);
                 }
             }
@@ -212,7 +212,7 @@ impl Display for Schematic {
 fn task1(file: &Path) -> u32 {
     let mut schematic = Schematic::new(file);
 
-    println!("{}", schematic);
+   //println!("{}", schematic);
 
     schematic.find_part();
 
@@ -222,7 +222,7 @@ fn task1(file: &Path) -> u32 {
 fn task2(file: &Path) -> u32 {
     let mut schematic = Schematic::new(file);
 
-    println!("{}", schematic);
+   //println!("{}", schematic);
 
     schematic.find_gear();
 
