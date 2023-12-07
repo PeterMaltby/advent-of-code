@@ -153,17 +153,17 @@ impl Garden {
 
     fn cal_ranges(&mut self) -> i64 {
         self.range_translate(Rc::clone(&self.seed_to_soil));
-        print!("\n");
+        //print!("\n");
         self.range_translate(Rc::clone(&self.soil_to_fetilizer));
-        print!("\n");
+        //print!("\n");
         self.range_translate(Rc::clone(&self.fertilizer_to_water));
-        print!("\n");
+        //print!("\n");
         self.range_translate(Rc::clone(&self.water_to_light));
-        print!("\n");
+        //print!("\n");
         self.range_translate(Rc::clone(&self.light_to_temp));
-        print!("\n");
+        //print!("\n");
         self.range_translate(Rc::clone(&self.temp_to_humidity));
-        print!("\n");
+        //print!("\n");
         self.range_translate(Rc::clone(&self.humidity_to_location));
         return self.part2_ans();
     }
